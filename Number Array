@@ -1,0 +1,47 @@
+#include "NumberArray.h"
+#include <iostream>
+#include <random>
+
+using namespace std;
+
+int main() {
+    // Test constructors
+    cout << "----- Test constructors -----" << endl;
+
+    NumberArray defaultArray;  // Default constructor
+    cout << "From default constructor: Array of size 10" << endl;
+    defaultArray.printArray();
+
+    NumberArray customArray(15);  // Custom size constructor
+    cout << "From constructor with parameters: Array of size 15" << endl;
+    customArray.printArray();
+
+    // Fill the array with random values
+    cout << "----- Test mutator -----" << endl;
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> dist(1.0, 100.0);
+
+    cout << "Array filled with numbers:" << endl;
+    for (int i = 0; i < 15; i++)
+        customArray.setNumber(i, dist(gen));
+
+    customArray.printArray();
+
+    // Test out-of-bounds index
+    cout << "Trying to set a number with an out of bounds index (20):" << endl;
+    customArray.setNumber(20, 50.0);
+
+    // Test accessors
+    cout << "----- Test accessors -----" << endl;
+    cout << "Access item at index 5: " << customArray.getNumber(5) << endl;
+    cout << "Access item at index 20 (out of bounds): " << customArray.getNumber(20) << endl;
+
+    // Test min, max, and average functions
+    cout << "The minimum value in the array is: " << customArray.getMin() << endl;
+    cout << "The maximum value in the array is: " << customArray.getMax() << endl;
+    cout << "The average of the values in the array is: " << customArray.getAverage() << endl;
+
+    return 0;
+}
